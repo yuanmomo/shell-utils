@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# install docker and docker-compose
+# Usage :
+#   bash <(curl -s https://raw.githubusercontent.com/yuanmomo/shell-utils/master/docker/docker-docker-compose.sh)
+
+
 # install docker first
 if [[ ! $(command -v docker) ]]; then
     echo "自动安装 docker 。。。。。"

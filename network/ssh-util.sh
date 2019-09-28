@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# update ssh port and set only rsa login only
+# Usage :
+#   bash <(curl -s https://raw.githubusercontent.com/yuanmomo/shell-utils/master/network/ssh-util.sh)
 
 # 脚本说明
 cat << EOF

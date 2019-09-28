@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# install common tools/utils
+# Usage :
+#   curl -s https://raw.githubusercontent.com/yuanmomo/shell-utils/master/system/install-apps.sh | bash -s  ${install_tools[*]}
+
+
 cat << EOF
 1. 安装工具 : $*
 EOF

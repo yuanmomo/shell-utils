@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# update local DNS to 8.8.8.8, 8.8.4.4
+# Usage :
+#   curl <(curl -s https://raw.githubusercontent.com/yuanmomo/shell-utils/master/network/dns-util.sh)
+
+
 cat << EOF
 1. 默认配置 DNS server 为 8.8.8.8 和 8.8.4.4
 EOF
