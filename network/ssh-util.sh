@@ -37,5 +37,6 @@ if [[ $chsh == y ]]; then
     service sshd restart
 
     iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $Port -j ACCEPT
+    ip6tables -I INPUT -m state --state NEW -m tcp -p tcp --dport $Port -j ACCEPT
     echo "新的 SSH 端口号 : $Port"
 fi
