@@ -11,17 +11,22 @@ cat << EOF
     1.3 禁用 DNS 反向解析
 EOF
 
+# 读取用户输入脚本
+read_input_file="read-input.sh"
+if [[ ! -e ${read_input_file} ]] ; then
+    wget -O ${read_input_file} https://raw.githubusercontent.com/yuanmomo/shell-utils/master/system/read-input.sh
+fi
+chmod +x ${read_input_file} && source ${read_input_file}
 
 # change ssh config
-read -p "是否需要修改 SSH 配置（y/n）：" chsh
-until [[ $chmi =~ ^([y]|[n])$ ]]; do
-    read -p "请重新键入是否需要修改 SSH 配置（y/n）：" chsh
-done
-if [[ $chsh == y ]]; then
-    read -p "请指定自定义SSH端口号（可用范围为0-65535 推荐使用大端口号）：" Port;Port=${Port:-22233}
-    until  [[ $Port =~ ^([0-9]{1,4}|[1-5][0-9]{4}|6[0-5]{2}[0-3][0-5])$ ]];do
-        read -p "请重新键入SSH自定义端口号：" Port;Port=${Port:-22233};
-    done
+readInput "是否需要修改 SSH 配置, (y/n)? (默认: n) " "^([y]|[n])$" "n"
+changeSsh=${read_value}
+
+if [[ ${changeSsh} == y ]]; then
+
+    readInput "请指定 SSH 新的端口号 (可用范围为0-65535), 默认 27392:  ? " "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-5]{2}[0-3][0-5])$" "27392"
+    Port=${read_value}
+
 
     # update port
     sed -i 's/^Port/#Port/g' /etc/ssh/sshd_config
