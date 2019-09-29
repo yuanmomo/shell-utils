@@ -17,3 +17,5 @@ if [[ ! $(command -v docker-compose) ]]; then
     chmod +x /usr/local/bin/docker-compose
 fi
 
+service docker restart
+
