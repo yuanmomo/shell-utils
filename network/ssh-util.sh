@@ -27,6 +27,7 @@ if [[ ${changeSsh} == y ]]; then
     readInput "请指定 SSH 新的端口号 (可用范围为0-65535), 默认 27392:  ? " "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-5]{2}[0-3][0-5])$" "27392"
     Port=${read_value}
 
+    echo "请注意修改防火墙，打开 SSH 端口 : $Port"
 
     # update port
     sed -i 's/^Port/#Port/g' /etc/ssh/sshd_config
