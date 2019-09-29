@@ -8,7 +8,7 @@
 # install docker first
 if [[ ! $(command -v docker) ]]; then
     echo "自动安装 docker 。。。。。"
-    wget -qO- get.docker.com | bash
+    bash <(curl -s -L get.docker.com)
 fi
 
 if [[ ! $(command -v docker-compose) ]]; then
