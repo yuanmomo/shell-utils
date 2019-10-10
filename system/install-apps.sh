@@ -16,8 +16,11 @@ if [[ $(command -v yum) ]]; then
 fi
 
 # update first
-$cmd update
+${cmd} -y update
+if [[ ${cmd} == "apt" ]]; then
+    ${cmd} -y upgrade
+fi
 
 # install
 echo "$cmd install -y $*"
-$cmd install -y $*
+${cmd} install -y $*
