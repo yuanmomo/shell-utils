@@ -9,6 +9,8 @@ cat << EOF
 1. 安装工具 : $*
 EOF
 
+
+
 # Debian(Ubuntu) or RHEL(CentOS)
 cmd="apt"
 if [[ $(command -v yum) ]]; then
