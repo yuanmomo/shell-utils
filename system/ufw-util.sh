@@ -27,7 +27,7 @@ function install_ufw(){
 }
 
 function enable_ufw(){
-    echo "y"|ufw enable
+    ufw --force enable
     ufw default deny
 }
 
@@ -63,6 +63,9 @@ function port_allow_ufw_v4(){
     ufw allow ${port}/${type}
 }
 
+function delete_v6_rules(){
+   ufw status numbered | grep -w "(v6)" | tac | sed -r  -e "s/^\[(.*)\]/\1/g"| awk  '{print $1}'| xargs -I {} ufw --force  delete {}
+}
 # default allow ssh port
 ssh_port=`ss -tulpn | grep -i sshd | awk -F ' ' '{print $5}'  | grep "\*"|awk -F ':' '{print $2}'`
 
