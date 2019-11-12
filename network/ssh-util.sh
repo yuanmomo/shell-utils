@@ -61,8 +61,8 @@ if [[ ${changeSsh} == y ]]; then
     # ip6tables -I INPUT -m state --state NEW -m tcp -p tcp --dport ${Port} -j ACCEPT
     
     echo "删除防火墙旧的 SSH 规则: ${old_ssh_port}"
-    ufw delete allow ${old_ssh_port}/tcp
-    
+    ufw --force delete allow ${old_ssh_port}/tcp
+
     echo "打开防火墙旧的 SSH 规则 : ${Port}"
     ufw allow ${Port}/${type}
     ufw status verbose
