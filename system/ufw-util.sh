@@ -67,19 +67,19 @@ function delete_v6_rules(){
    ufw status numbered | grep -w "(v6)" | tac | sed -r  -e "s/^\[(.*)\]/\1/g"| awk  '{print $1}'| xargs -I {} ufw --force  delete {}
 }
 # default allow ssh port
-ssh_port=`ss -tulpn | grep -i sshd | awk -F ' ' '{print $5}'  | grep "\*"|awk -F ':' '{print $2}'`
-
-port_allow_ufw_v4 ${ssh_port} "tcp"
-
-port_allow_ufw_v4 22 "tcp"
-port_allow_ufw_v4 22 "udp"
-port_allow_ufw_v4 22
-
-port_allow_ufw_v4 5000 "tcp"
-
-port_allow_ufw_v4 900:1900 "tcp"
-port_allow_ufw_v4 900:1900 "tcp"
-
+#   ssh_port=`ss -tulpn | grep -i sshd | awk -F ' ' '{print $5}'  | grep "\*"|awk -F ':' '{print $2}'`
+#
+#   port_allow_ufw_v4 ${ssh_port} "tcp"
+#
+#   port_allow_ufw_v4 22 "tcp"
+#   port_allow_ufw_v4 22 "udp"
+#   port_allow_ufw_v4 22
+#
+#   port_allow_ufw_v4 5000 "tcp"
+#
+#   port_allow_ufw_v4 900:1900 "tcp"
+#   port_allow_ufw_v4 900:1900 "tcp"
+#
 
 
 
