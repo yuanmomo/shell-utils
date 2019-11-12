@@ -64,6 +64,6 @@ if [[ ${changeSsh} == y ]]; then
     ufw --force delete allow ${old_ssh_port}/tcp
 
     echo "打开防火墙旧的 SSH 规则 : ${Port}"
-    ufw allow ${Port}/${type}
+    ufw allow ${Port}/tcp
     ufw status verbose
 fi
