@@ -32,7 +32,7 @@ fi
 if [[ ! $(command -v ufw) ]]; then
     # install ufw
     ${cmd} install -y ufw
-    ufw enable
+    ufw --force enable
     ufw default deny
 fi
 
@@ -40,7 +40,7 @@ if [[ ${changeSsh} == y ]]; then
     readInput "请指定 SSH 新的端口号 (可用范围为0-65535), 默认 27392:  ? " "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-5]{2}[0-3][0-5])$" "27392"
     Port=${read_value}
 
-    echo "请注意修改防火墙，打开 SSH 端口 : $Port"
+    echo "请注意修改防火墙，打开 SSH 端口 : ${Port}"
 
     # update port
     sed -i 's/^Port/#Port/g' /etc/ssh/sshd_config
@@ -49,17 +49,21 @@ if [[ ${changeSsh} == y ]]; then
     # turn off dns
     sed -i 's/^UseDNS/#UseDNS/g' /etc/ssh/sshd_config
 
-    echo "Port $Port">> /etc/ssh/sshd_config
+    echo "Port ${Port}">> /etc/ssh/sshd_config
     echo "PasswordAuthentication no">> /etc/ssh/sshd_config
     echo "UseDNS no">> /etc/ssh/sshd_config
+    
+    old_ssh_port=`ss -tulpn | grep -i sshd | awk -F ' ' '{print $5}'  | grep "\*"|awk -F ':' '{print $2}'`
 
     service sshd restart
 
-    # iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport $Port -j ACCEPT
-    # ip6tables -I INPUT -m state --state NEW -m tcp -p tcp --dport $Port -j ACCEPT
-    echo "新的 SSH 端口号 : $Port"
-
-    echo "防火墙开放 SSH 端口号 : $Port"
-    ufw allow $Port/tcp
-    ufw status numbered
+    # iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport ${Port} -j ACCEPT
+    # ip6tables -I INPUT -m state --state NEW -m tcp -p tcp --dport ${Port} -j ACCEPT
+    
+    echo "删除防火墙旧的 SSH 规则: ${old_ssh_port}"
+    ufw delete allow ${old_ssh_port}/tcp
+    
+    echo "打开防火墙旧的 SSH 规则 : ${Port}"
+    ufw allow ${Port}/${type}
+    ufw status verbose
 fi
