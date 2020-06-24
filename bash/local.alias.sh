@@ -1,5 +1,5 @@
 # system
-alias ubash="curl \"https://raw.githubusercontent.com/yuanmomo/shell-utils/master/bash/local.alias.sh?(date \"+%N\")\" > ~/.local.bashrc  && . ~/.local.bashrc"
+alias ubash="curl -s \"https://raw.githubusercontent.com/yuanmomo/shell-utils/master/bash/local.alias.sh?(date \"+%N\")\" > ~/.local.bashrc  && . ~/.local.bashrc"
 
 alias grep='grep -i '
 alias c='clear'
